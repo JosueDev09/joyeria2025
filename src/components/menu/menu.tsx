@@ -1,35 +1,122 @@
 import { useState, useEffect } from 'react';
 
+ const nav = [
+  {
+    name: "Inicio",
+    href: "/",
+    icon: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+        />
+      </svg>
+    ),
+  },
+
+  {
+    name: "Colecciones",
+    href: "/colecciones",
+    icon: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10a2 2 0 01-1.105 1.789l-6.79 3.394a2 2 0 01-1.79 0l-6.79-3.394A2 2 0 014 17V7m8 4v10"
+        />
+      </svg>
+    ),
+  },
+ 
+  {
+    name: "Contacto",
+    href: "/quejas",
+    icon: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M4 4h16a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2z"
+        />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M22 6l-10 7L2 6"
+        />
+      </svg>
+    ),
+  },
+   {
+    name: "Carrito",
+    href: "/cart",
+    icon: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 8h14m-10 0a1 1 0 11-2 0 1 1 0 012 0zm8 0a1 1 0 11-2 0 1 1 0 012 0z"
+        />
+      </svg>
+    ),
+  },
+];
+
 export default function JewelryNavbar() {
   const [scroll, setScroll] = useState(false);
   const [showLogo, setShowLogo] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
+   const [mounted, setMounted] = useState(false);
 
-  const nav = [
-    { name: 'Inicio', href: '#inicio' },
-    { name: 'Colecciones', href: '#colecciones' },
-    { name: 'Nosotros', href: '#nosotros' },
-    { name: 'Contacto', href: '#contacto' },
-  ];
 
-   useEffect(() => {
-    const handleScroll = () => {
-      const scrolled = window.scrollY > 20;
-      setScroll(scrolled);
-      setShowLogo(scrolled);
-    };
+useEffect(() => {
+        setMounted(true); // 🔹 asegura render solo en cliente
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+              const handleScroll = () => {
+          const scrolled = window.scrollY > 20;
+          setScroll(scrolled);
+          setShowLogo(scrolled);
+        };
 
-    const handleSmoothScroll = (e: any, href: string) => {
-    e.preventDefault();
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+      }, []);
+
+      if (!mounted) return null; // evita SSR mismatch
+
+      const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+        if (href.startsWith("#")) {
+          e.preventDefault();
+          const target = document.getElementById(href.substring(1));
+          if (target) {
+            const offset = target.getBoundingClientRect().top + window.scrollY - 100;
+            window.scrollTo({ top: offset, behavior: "smooth" });
+          }
+        }
+      };
+  //  useEffect(() => {
+  //   const handleScroll = () => {
+  //     const scrolled = window.scrollY > 20;
+  //     setScroll(scrolled);
+  //     setShowLogo(scrolled);
+  //   };
+
+  //   window.addEventListener('scroll', handleScroll);
+  //   return () => window.removeEventListener('scroll', handleScroll);
+  // }, []);
+
+  //   const handleSmoothScroll = (e: any, href: string) => {
+  //   e.preventDefault();
+  //   const element = document.querySelector(href.substring(1));
+  //   if (element) {
+  //     element.scrollIntoView({ behavior: 'smooth' });
+  //   }
+  // };
 
   return (
     <>
@@ -160,7 +247,7 @@ export default function JewelryNavbar() {
       <header className="md:hidden fixed left-2 right-2 w-auto rounded-2xl z-50 top-1.5 px-4 py-3 bg-white/95 backdrop-blur-md border border-[#8B8B8B]/10 shadow-[0_4px_20px_rgba(44,44,44,0.08)]">
         <div className="flex justify-center text-xl font-bold text-[#2C2C2C]">
           <a href="/" className="tracking-wide" style={{ fontFamily: "'Playfair Display', serif" }}>
-            LUMIÈRE
+            ESYMBEL
           </a>
         </div>
       </header>

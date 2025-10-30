@@ -1,9 +1,11 @@
 
 'use client';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function JewelryCollections() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const router = useRouter();
 
   const collections = [
     {
@@ -119,6 +121,7 @@ export default function JewelryCollections() {
 
                 {/* CTA Button */}
                 <button 
+                  // onClick={() => router.push(`/colecciones/${collection.id}`)}
                   className={`group/btn relative px-6 py-3 bg-transparent text-white text-xs tracking-[2px] uppercase font-medium border border-white/30 overflow-hidden transition-all duration-500 ${
                     hoveredIndex === index 
                       ? 'opacity-100 translate-y-0' 
@@ -145,7 +148,7 @@ export default function JewelryCollections() {
 
         {/* Bottom CTA */}
         <div className="text-center mt-16">
-          <button className="group relative px-12 py-4 bg-[#2C2C2C] text-white text-sm tracking-[2px] uppercase font-medium overflow-hidden transition-all duration-500 hover:shadow-[0_10px_40px_rgba(44,44,44,0.3)]">
+          <button  onClick={() => router.push(`/colecciones`)}className="group relative px-12 py-4 bg-[#2C2C2C] text-white text-sm tracking-[2px] uppercase font-medium overflow-hidden transition-all duration-500 hover:shadow-[0_10px_40px_rgba(44,44,44,0.3)]">
             <span className="relative z-10">Ver Todas las Colecciones</span>
             <div className="absolute inset-0 bg-gradient-to-r from-[#2C2C2C] to-[#D4AF37] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left" />
           </button>
