@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 
 export default function JewelryNavbar() {
   const [scroll, setScroll] = useState(false);
+  const [showLogo, setShowLogo] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
 
   const nav = [
@@ -11,15 +12,18 @@ export default function JewelryNavbar() {
     { name: 'Contacto', href: '#contacto' },
   ];
 
-  useEffect(() => {
+   useEffect(() => {
     const handleScroll = () => {
-      setScroll(window.scrollY > 20);
+      const scrolled = window.scrollY > 20;
+      setScroll(scrolled);
+      setShowLogo(scrolled);
     };
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleSmoothScroll = (e:any, href:string) => {
+    const handleSmoothScroll = (e: any, href: string) => {
     e.preventDefault();
     const element = document.querySelector(href);
     if (element) {
@@ -39,12 +43,21 @@ export default function JewelryNavbar() {
         }`}
       >
         {/* Logo */}
-        <div className="text-2xl font-bold text-[#2C2C2C]">
-          <a href="/" className="font-bold tracking-wide" style={{ fontFamily: "'Playfair Display', serif" }}>
-            ESYMBEL
-          </a>
-        </div>
-
+        <div
+            className={`transition-all duration-700 ${
+              showLogo
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 -translate-y-4 pointer-events-none'
+            }`}
+          >
+            <a
+              href="/"
+              className="text-2xl font-bold text-[#2C2C2C] tracking-wide"
+              style={{ fontFamily: "'Playfair Display', serif" }}
+            >
+              ESYMBEL
+            </a>
+          </div>
         {/* Links */}
         <nav className="flex items-center space-x-6">
           {nav.slice(0, -1).map((item) => (

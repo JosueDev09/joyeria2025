@@ -261,8 +261,8 @@ export default function MaterialsQuality() {
       </div>
 
       {/* Decorative Elements */}
-      <div className="absolute top-32 right-12 w-2 h-2 bg-[#D4AF37] rounded-full animate-pulse" />
-      <div className="absolute bottom-32 left-12 w-2 h-2 bg-[#D4AF37] rounded-full animate-pulse" style={{ animationDelay: '1s' }} />
+      <div className="absolute top-32 right-12 w-2 h-2 bg-[#D4AF37] rounded-full animate-pulse z-9999" />
+      <div className="absolute bottom-32 left-12 w-2 h-2 bg-[#D4AF37] rounded-full animate-pulse z-9999" style={{ animationDelay: '0.5s' }} />
     </section>
   );
 }
