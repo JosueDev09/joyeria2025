@@ -1,6 +1,6 @@
 'use client';
 import Menu from './menu';
-// import { Footer } from '@/components/footer/footer';
+import  Footer  from '@/components/footer/footer';
 import { usePathname } from "next/navigation";
 
 
@@ -16,9 +16,9 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
             <Menu />
         )}
         {children}
-       {/* {!hideLayout && ( */}
-        {/* <Footer /> */}
-      {/* )} */}
+       {!hideLayout && ( 
+         <Footer />
+       )}
       </body>
     </html>
   );
