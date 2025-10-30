@@ -33,7 +33,7 @@ import { useState, useEffect } from 'react';
  
   {
     name: "Contacto",
-    href: "/quejas",
+    href: "/contacto",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path
